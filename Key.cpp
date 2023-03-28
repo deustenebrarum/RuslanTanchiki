@@ -1,14 +1,16 @@
+#include <Windows.h>
+
 #include "Key.hpp"
 
-bool Key::is_key_pressed(int code) {
-	const auto PRESSED_FLAG = 0x8000;
+bool is_key_pressed(int code) {
+	constexpr auto PRESSED_FLAG = 0x8000;
 	const auto key_state = GetKeyState(code);
 	if (key_state & PRESSED_FLAG)
 		return true;
 	return false;
 }
 
-bool Key::is_key_pressed(Key key) {
+bool is_key_pressed(Key key) {
 	switch (key) {
 	case Key::LEFT_ARROW:
 		return is_key_pressed(VK_LEFT);
@@ -22,6 +24,7 @@ bool Key::is_key_pressed(Key key) {
 		return is_key_pressed(0x51);
 	case Key::SPACE:
 		return is_key_pressed(VK_SPACE);
+	default:
+		return false;
 	}
-	return false;
 }

@@ -1,7 +1,6 @@
 #pragma once
 #ifndef KEY_H
 #define KEY_H
-#include <Windows.h>
 
 enum class Key {
 	LEFT_ARROW,

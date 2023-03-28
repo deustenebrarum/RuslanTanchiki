@@ -1,3 +1,6 @@
+#ifndef ENTITY_H
+#define ENTITY_H
+
 #include "utility.hpp"
 #include "GameObject.hpp"
 
@@ -7,3 +10,5 @@ public:
 
 	virtual void move(Direction direction);
 };
+
+#endif

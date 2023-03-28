@@ -2,7 +2,6 @@
 #define TANK_H
 
 #include <random>
-#include <array>
 
 #include "CollisionObject.hpp"
 #include "utility.hpp"

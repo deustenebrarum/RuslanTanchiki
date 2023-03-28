@@ -2,12 +2,13 @@
 
 #include <vector>
 #include <iostream>
+
 #include "GameObject.hpp"
 
 
 namespace Pole {
-	void print(std::vector<GameObject*> objects) {
-		const char array[height + 2][width + 2]{
+	std::string get_view(std::vector<GameObject*> objects) {
+		constexpr char array[height + 2][width + 2]{
 		{char(218),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(194),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(191)},
 		{char(179), EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL,char(179), EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL,char(179)},
 		{char(179), EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL,char(179), EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL,char(179)},
@@ -23,30 +24,36 @@ namespace Pole {
 		{char(192),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(193),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(196),char(217)} };
 
 
+		std::stringstream out;
+
 		for (int j = 0; j < width + 2; j++) {
-			std::cout << array[0][j];
+			out << array[0][j];
 		}
-		std::cout << '\n';
-		for (int i = 0; i < height; i++) {
-			std::cout << array[i + 1][0];
-			for (int j = 0; j < width; j++) {
+		out << '\n';
+		for (size_t i = 0; i < height; i++) {
+			out << array[i + 1][0];
+			for (size_t j = 0; j < width; j++) {
 				bool is_object = false;
 				for (GameObject* object_ptr : objects) {
-					if (object_ptr->position() == Point{ j, i }) {
+					if (object_ptr->position() == Point{ 
+						static_cast<int>(j),
+						static_cast<int>(i)
+					}) {
 						is_object = true;
-						std::cout << object_ptr->view();
+						out << object_ptr->view();
 						break;
 					}
 				}
 				if (!is_object)
-					cout << EMPTY_CELL;
+					out << EMPTY_CELL;
 			}
-			std::cout << array[i + 1][width + 1];
-			cout << endl;
+			out << array[i + 1][width + 1];
+			out << endl;
 		}
-		for (int j = 0; j < width + 2; j++) {
-			std::cout << array[height + 1][j];
+		for (size_t j = 0; j < width + 2; j++) {
+			out << array[height + 1][j];
 		}
-		std::cout << '\n';
+		out << '\n';
+		return out.str();
 	}
 };

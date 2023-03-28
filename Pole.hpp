@@ -2,6 +2,8 @@
 #define POLE_H
 
 #include <vector>
+#include <sstream>
+#include <string>
 
 #include "GameObject.hpp"
 
@@ -10,7 +12,7 @@ namespace Pole {
 	constexpr size_t height = 11;
 	constexpr size_t width = 21;
 
-	void print(std::vector<GameObject*> objects);
+	std::string get_view(std::vector<GameObject*> objects);
 };
 
 #endif
